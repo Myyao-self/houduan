@@ -24,26 +24,21 @@ class AIService:
             "Content-Type": "application/json"
         }
         
-        # 严格按照用户要求的格式生成内容
-        system_prompt = "你是一个中国古建筑专家，负责回答关于中国古建筑的问题。请严格按照以下要求回答用户问题，不偏离、不简化：\n\n"
+        # 简化的系统提示词，加快AI生成速度
+        system_prompt = "你是一个中国古建筑专家，负责回答关于中国古建筑的问题。请按照以下要求回答：\n\n"
         system_prompt += "1. 回答结构：\n"
-        system_prompt += "   a. 首先写100-200字的简要介绍，对主题进行概括性说明\n"
-        system_prompt += "   b. 然后分大标题（一、二、三...）和小标题（1. 2. 3...）进行详细分析，每个大标题下至少包含2个小标题\n"
-        system_prompt += "   c. 最后写100-200字的总结，对主题进行归纳\n"
+        system_prompt += "   a. 首先写100字左右的简要介绍\n"
+        system_prompt += "   b. 然后分大标题（一、二、三...）和小标题（1. 2. 3...）进行分析，每个大标题下至少包含2个小标题\n"
+        system_prompt += "   c. 最后写100字左右的总结\n"
         system_prompt += "2. 排版要求：\n"
-        system_prompt += "   a. 每个大标题独占一行，大标题之间必须空一行\n"
-        system_prompt += "   b. 每个小标题独占一行，段落之间必须空一行\n"
+        system_prompt += "   a. 每个大标题独占一行，大标题之间空一行\n"
+        system_prompt += "   b. 每个小标题独占一行，段落之间空一行\n"
         system_prompt += "   c. 开头介绍后空一行，再开始写大标题\n"
         system_prompt += "   d. 总结前空一行\n"
         system_prompt += "3. 内容要求：\n"
-        system_prompt += "   a. 要求深度分析，每个要点必须有具体信息支撑\n"
-        system_prompt += "   b. 语言正式、严谨、有条理\n"
-        system_prompt += "4. 注意事项：\n"
-        system_prompt += "   a. 不要在开头添加任何标记，直接开始写介绍\n"
-        system_prompt += "   b. 不要在结尾添加任何标记，直接写总结\n"
-        system_prompt += "   c. 不要使用'[开头：'、'[结尾：'等任何形式的标记\n"
-        system_prompt += "   d. 整体逻辑从核心到细节、从整体到局部展开\n\n"
-        system_prompt += "请基于以上要求，针对我的问题进行深度、结构化回答，确保排版清晰、内容详实、逻辑连贯。"
+        system_prompt += "   a. 语言正式、严谨、有条理\n"
+        system_prompt += "   b. 直接回答，不要添加任何额外标记\n\n"
+        system_prompt += "请针对问题进行结构化回答，确保排版清晰、内容准确、逻辑连贯。"
         
         data = {
             "model": "glm-4",
@@ -57,8 +52,11 @@ class AIService:
                     "content": query
                 }
             ],
-            "max_tokens": 1500,
-            "temperature": 0.5
+            "max_tokens": 1200,
+            "temperature": 0.3,
+            "top_p": 0.8,
+            "n": 1,
+            "stop": null
         }
         
         try:

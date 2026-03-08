@@ -57,8 +57,8 @@ class AIService:
                     "content": query
                 }
             ],
-            "max_tokens": 2000,
-            "temperature": 0.7
+            "max_tokens": 1500,
+            "temperature": 0.5
         }
         
         try:
@@ -67,8 +67,8 @@ class AIService:
             logger.debug(f"Request body: {data}")
             
             # 增加超时时间并添加重试机制
-            max_retries = 2
-            retry_delay = 2  # 秒
+            max_retries = 1
+            retry_delay = 1  # 秒
             
             for retry in range(max_retries):
                 try:

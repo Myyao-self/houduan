@@ -56,7 +56,7 @@ class AIService:
             "temperature": 0.3,
             "top_p": 0.8,
             "n": 1,
-            "stop": null
+            "stop": None
         }
         
         try:
